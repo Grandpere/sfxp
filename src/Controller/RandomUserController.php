@@ -22,6 +22,15 @@ class RandomUserController extends AbstractController
         ]);
     }
 
+        /**
+     * @Route("/random/user/{results}", name="many_random_users", requirements={"results"="\d+"})
+     */
+    public function manyRandomUser(int $results = 1, RandomUserClient $randomUserClient): Response
+    {
+        $randomUser = $randomUserClient->getManyRandomUser($results);
+        dd($randomUser);
+    }
+
     /**
      * @Route("/random/password/", name="random_password")
      */

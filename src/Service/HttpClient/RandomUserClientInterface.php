@@ -2,8 +2,6 @@
 
 namespace App\Service\HttpClient;
 
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * API Documentation : https://randomuser.me/documentation
  */
@@ -17,6 +15,8 @@ interface RandomUserClientInterface
     public const PASSWORD_UPPER = 'upper';
     public const PASSWORD_LOWER = 'lower';
     public const PASSWORD_NUMBER = 'number';
+    public const MAX_RESULT = 5000;
+
     public const AVAILABLE_GENDER = [
         self::GENDER_MALE,
         self::GENDER_FEMALE
@@ -30,4 +30,5 @@ interface RandomUserClientInterface
 
     public function getRandomUser(string $gender): array;
     public function getRandomPassword(string $parameters): array;
+    public function getManyRandomUser(int $result): array;
 }

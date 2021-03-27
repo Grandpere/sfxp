@@ -32,6 +32,23 @@ class RandomUserClient extends AbstractClient implements RandomUserClientInterfa
         throw new \InvalidArgumentException(sprintf('Invalid gender : %s, available genders : [%s, %s]', $gender, self::GENDER_MALE, self::GENDER_FEMALE));
     }
 
+    public function getManyRandomUser(int $result = 1): array
+    {
+        if ($result > 5000) {
+            throw new \InvalidArgumentException(sprintf('Results are limited to %d, your request : %d', self::MAX_RESULT, $result));
+        }
+
+        $response = $this->requestApi(
+            Request::METHOD_GET, 
+            self::GET_RANDOM_USER_URI, [
+                'query' => [
+                    'results' => $result
+                ]
+            ]
+        );
+        return $response->toArray();
+    }
+
     public function getRandomPassword(string $parameters): array
     {
         $availablesCharsets = self::AVAILABLE_PASSWORD_CHARSET;
