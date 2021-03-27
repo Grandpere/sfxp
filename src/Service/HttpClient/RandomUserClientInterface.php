@@ -29,6 +29,7 @@ interface RandomUserClientInterface
     ];
 
     public function getRandomUser(string $gender): array;
-    public function getRandomPassword(string $parameters): array;
     public function getManyRandomUser(int $result): array;
+    public function getRandomUserSeed(string $seed): array;
+    public function getRandomPassword(string $parameters): array;
 }

@@ -49,6 +49,19 @@ class RandomUserClient extends AbstractClient implements RandomUserClientInterfa
         return $response->toArray();
     }
 
+    public function getRandomUserSeed(string $seed): array
+    {
+        $response = $this->requestApi(
+            Request::METHOD_GET, 
+            self::GET_RANDOM_USER_URI, [
+                'query' => [
+                    'seed' => $seed
+                ]
+            ]
+        );
+        return $response->toArray();
+    }
+
     public function getRandomPassword(string $parameters): array
     {
         $availablesCharsets = self::AVAILABLE_PASSWORD_CHARSET;

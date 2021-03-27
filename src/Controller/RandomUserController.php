@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class RandomUserController extends AbstractController
 {
     /**
-     * @Route("/random/user/{gender}", name="random_user", requirements={"gender"="[a-z]+"})
+     * @Route("/random/user/gender/{gender}", name="random_user", requirements={"gender"="[a-z]+"})
      */
     public function randomUser(?string $gender = null, RandomUserClient $randomUserClient): Response
     {
@@ -22,8 +22,8 @@ class RandomUserController extends AbstractController
         ]);
     }
 
-        /**
-     * @Route("/random/user/{results}", name="many_random_users", requirements={"results"="\d+"})
+    /**
+     * @Route("/random/user/result/{results}", name="many_random_users", requirements={"results"="\d+"})
      */
     public function manyRandomUser(int $results = 1, RandomUserClient $randomUserClient): Response
     {
@@ -32,7 +32,16 @@ class RandomUserController extends AbstractController
     }
 
     /**
-     * @Route("/random/password/", name="random_password")
+     * @Route("/random/user/seed/{seed}", name="random_user_seed", requirements={"seed"="[\w|\d+]+"})
+     */
+    public function RandomUserSeed(string $seed, RandomUserClient $randomUserClient): Response
+    {
+        $randomUser = $randomUserClient->getRandomUserSeed($seed);
+        dd($randomUser);
+    }
+
+    /**
+     * @Route("/random/user/password/", name="random_password")
      */
     public function randomPassword(Request $request, RandomUserClient $randomUserClient): Response
     {
