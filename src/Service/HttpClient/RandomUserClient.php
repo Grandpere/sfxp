@@ -6,13 +6,13 @@ use App\Service\HttpClient\AbstractClient;
 use Symfony\Component\HttpFoundation\Request;
 
 class RandomUserClient extends AbstractClient implements RandomUserClientInterface
-{  
+{
     public function getRandomUser(string $gender = null): array
     {
         if (null === $gender) {
             $response = $this->requestApi(
                 Request::METHOD_GET,
-                self::GET_RANDOM_USER_URI, 
+                self::GET_RANDOM_USER_URI,
             );
     
             return $response->toArray();
@@ -20,8 +20,9 @@ class RandomUserClient extends AbstractClient implements RandomUserClientInterfa
 
         if (in_array($gender, self::AVAILABLE_GENDER)) {
             $response = $this->requestApi(
-                Request::METHOD_GET, 
-                self::GET_RANDOM_USER_URI, [
+                Request::METHOD_GET,
+                self::GET_RANDOM_USER_URI,
+                [
                     'query' => [
                         'gender' => $gender
                     ]
@@ -39,8 +40,9 @@ class RandomUserClient extends AbstractClient implements RandomUserClientInterfa
         }
 
         $response = $this->requestApi(
-            Request::METHOD_GET, 
-            self::GET_RANDOM_USER_URI, [
+            Request::METHOD_GET,
+            self::GET_RANDOM_USER_URI,
+            [
                 'query' => [
                     'results' => $result
                 ]
@@ -52,8 +54,9 @@ class RandomUserClient extends AbstractClient implements RandomUserClientInterfa
     public function getRandomUserSeed(string $seed): array
     {
         $response = $this->requestApi(
-            Request::METHOD_GET, 
-            self::GET_RANDOM_USER_URI, [
+            Request::METHOD_GET,
+            self::GET_RANDOM_USER_URI,
+            [
                 'query' => [
                     'seed' => $seed
                 ]
@@ -67,24 +70,23 @@ class RandomUserClient extends AbstractClient implements RandomUserClientInterfa
         $availablesCharsets = self::AVAILABLE_PASSWORD_CHARSET;
         $params = explode(",", $parameters);
 
-        foreach ($params as $key => $param) {
+        foreach ($params as $param) {
             if (preg_match('/\d{1,2}(-\d{1,2})?/', $param, $matches)) {
                 if (1 === count($matches)) {
                     $passwordSize = $matches[0];
+                } elseif (2 === count($matches)) {
+                    $passwordSize = ($matches[0] < $matches[1]) ? sprintf("%s-%s", $matches[0], $matches[1]) : $matches[0];
                 }
-                elseif (2 === count($matches)) {
-                    $passwordSize = ($matches[0] < $matches[1]) ? sprintf("%s-%s",$matches[0], $matches[1]) : $matches[0];
-                }
-            }
-            elseif (!in_array($param, $availablesCharsets)) {
+            } elseif (!in_array($param, $availablesCharsets)) {
                 throw new \InvalidArgumentException(sprintf('Invalid charset : %s, available charsets : [%s, %s, %s, %s]', $param, self::PASSWORD_SPECIAL, self::PASSWORD_UPPER, self::PASSWORD_LOWER, self::PASSWORD_NUMBER));
             }
         }
         $response = $this->requestApi(
-            Request::METHOD_GET, 
-            self::GET_RANDOM_USER_URI, [
+            Request::METHOD_GET,
+            self::GET_RANDOM_USER_URI,
+            [
                 'query' => [
-                    'password' => sprintf("%s,%s",implode(',', $params), $passwordSize)
+                    'password' => sprintf("%s,%s", implode(',', $params), $passwordSize)
                 ]
             ]
         );

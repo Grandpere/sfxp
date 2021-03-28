@@ -32,9 +32,7 @@ abstract class AbstractClient
     public function requestApi(string $method, string $uri, array $options = []): ResponseInterface
     {
         try {
-            $response = $this->client->request($method, $uri, $options);
-
-            return $response;
+            return $this->client->request($method, $uri, $options);
         } catch (ClientException $exception) {
             throw new ClientBadRequestException($exception->getMessage());
         } catch (TransportExceptionInterface $exception) {

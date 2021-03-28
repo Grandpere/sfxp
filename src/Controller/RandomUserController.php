@@ -13,7 +13,7 @@ class RandomUserController extends AbstractController
     /**
      * @Route("/random/user/gender/{gender}", name="random_user", requirements={"gender"="[a-z]+"})
      */
-    public function randomUser(?string $gender = null, RandomUserClient $randomUserClient): Response
+    public function randomUser(RandomUserClient $randomUserClient, ?string $gender = null): Response
     {
         $randomUser = $randomUserClient->getRandomUser($gender);
         dd($randomUser);
@@ -25,7 +25,7 @@ class RandomUserController extends AbstractController
     /**
      * @Route("/random/user/result/{results}", name="many_random_users", requirements={"results"="\d+"})
      */
-    public function manyRandomUser(int $results = 1, RandomUserClient $randomUserClient): Response
+    public function manyRandomUser(RandomUserClient $randomUserClient, int $results = 1): Response
     {
         $randomUser = $randomUserClient->getManyRandomUser($results);
         dd($randomUser);
@@ -34,7 +34,7 @@ class RandomUserController extends AbstractController
     /**
      * @Route("/random/user/seed/{seed}", name="random_user_seed", requirements={"seed"="[\w|\d+]+"})
      */
-    public function RandomUserSeed(string $seed, RandomUserClient $randomUserClient): Response
+    public function RandomUserSeed(RandomUserClient $randomUserClient, string $seed): Response
     {
         $randomUser = $randomUserClient->getRandomUserSeed($seed);
         dd($randomUser);
