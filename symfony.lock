@@ -100,7 +100,7 @@
         "version": "v4.10.4"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.4"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -110,6 +110,27 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpstan/extension-installer": {
+        "version": "1.1.0"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.82"
+    },
+    "phpstan/phpstan-beberlei-assert": {
+        "version": "0.12.6"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.33"
+    },
+    "phpstan/phpstan-phpunit": {
+        "version": "0.12.18"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.21"
+    },
+    "predis/predis": {
+        "version": "v1.1.7"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -136,6 +157,18 @@
         },
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "snc/redis-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "85bbdb3d2db531e20874de29bab0587f93604fa8"
+        },
+        "files": [
+            "./config/packages/snc_redis.yaml"
         ]
     },
     "symfony/asset": {
